@@ -1,7 +1,0 @@
-<script>
-var ws = new WebSocket('ws://localhost:8099/');
-
-ws.onmessage = function(event) {
-  console.log('Count is: ' + event.data);
-  };
-</script>
