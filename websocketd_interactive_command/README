@@ -1,0 +1,9 @@
+start server:
+  websocketd --port=8099 --devconsole ./test.sh
+
+client:
+  open http://localhost:8099
+
+
+
+
