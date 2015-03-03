@@ -1,0 +1,5 @@
+how to run ：
+fab add_ssh_keys
+
+1.. notice that the task is in "fabfile.py" by default
+2.. fab function name

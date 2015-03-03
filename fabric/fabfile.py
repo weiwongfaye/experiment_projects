@@ -19,7 +19,7 @@ env.hosts = [
     '10.66.129.72'
     ]
 env.user = 'root'
-env.password = 'sp1unk'
+env.password = 'your_password'
 
 def add_ssh_keys():
     sudo('rm -rf ~/.ssh')
