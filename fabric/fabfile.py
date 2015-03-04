@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 from fabric.api import *
+import paramiko
 
 
 env.hosts = [
@@ -22,19 +23,35 @@ env.user = 'root'
 env.password = 'your_password'
 
 def reboot_machine():
-	# reboot will return -1 which stop executing in following host. use try except to work around.
-    try:
-        reboot()
-    except:
-        print "reboot start"
+    if _is_host_up(env.host,int(env.port)) is True:
+    	with settings(warn_only=True):
+            reboot()
+
+
+def disable_fw():
+    if _is_host_up(env.host,int(env.port)) is True:
+        with settings(warn_only=True):
+            sudo('systemctl stop firewalld') 
+            sudo('systemctl disable firewalld')
 
 def add_ssh_keys():
-    sudo('rm -rf ~/.ssh')
-    sudo('mkdir ~/.ssh')
-    sudo('wget http://10.66.4.29:8091/authorized_keys -O ~/.ssh/authorized_keys')
+    if _is_host_up(env.host,int(env.port)) is True:
+        sudo('rm -rf ~/.ssh')
+        sudo('mkdir ~/.ssh')
+        sudo('wget http://10.66.4.29:8091/authorized_keys -O ~/.ssh/authorized_keys')
+
+def stop_splunk():
+    with settings(warn_only=True):
+        run('/usr/local/eserv/splunk/bin/splunk stop -f')
+
+        
+def uninstall_splunk():
+    stop_splunk()
+    with settings(warn_only=True):
+        sudo('rm -rf /usr/local/eserv/splunk')
 
 
-def df_test():
+def df_info():
     if _is_host_up(env.host,int(env.port)) is True:
         run("df -h")
 
