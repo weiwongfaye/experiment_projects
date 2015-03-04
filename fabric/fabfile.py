@@ -21,6 +21,13 @@ env.hosts = [
 env.user = 'root'
 env.password = 'your_password'
 
+def reboot_machine():
+	# reboot will return -1 which stop executing in following host. use try except to work around.
+    try:
+        reboot()
+    except:
+        print "reboot start"
+
 def add_ssh_keys():
     sudo('rm -rf ~/.ssh')
     sudo('mkdir ~/.ssh')
