@@ -258,9 +258,9 @@
 				 $master=explode('-', $singleTask->hosts)[1];
 				 echo '<td>'.$singleTask->id.'</td>';
 				 echo '<td>'.$singleTask->deploytype.'</td>';
-				 echo '<td><a href='.$singleTask->build.'/>'.explode('/',$singleTask->build)[count(explode('/',$singleTask->build))-1].'</a></td>';
+				 echo '<td><a href="'.$singleTask->build.' target= "_blank"/>'.explode('/',$singleTask->build)[count(explode('/',$singleTask->build))-1].'</a></td>';
 
-				 echo '<td><a href="http://'.$master.':8000"/>'.$master.'</a></td>';
+				 echo '<td><a href="http://'.trim($master).':8000" target="_blank"/>'.$master.'</a></td>';
 				 echo '<td style="display:none">'.$singleTask->hosts.'</td>';
 				 echo '<td style="display:none">'.$settings.'</td>';
 
