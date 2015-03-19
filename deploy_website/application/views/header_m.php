@@ -54,9 +54,8 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create Deploy Task<b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="<?php echo str_replace("\\index.php", "", base_url());?>home/createsc">Index Cluster</a></li>
-                    <li><a href="<?php echo str_replace("\\index.php", "", base_url());?>home/createmc">Index Cluster-MultiSites</a></li>
-                    <!--<li><a href="<?php echo str_replace("\\index.php", "", base_url());?>home/createSpecial">Special</a></li>-->
+                    <li><a href="<?php echo str_replace("\\index.php", "", base_url());?>home/createsc">Cluster</a></li>
+                    <li><a href="<?php echo str_replace("\\index.php", "", base_url());?>home/createmc">MultiSite Cluster</a></li>
                     <li><a href="<?php echo str_replace("\\index.php", "", base_url());?>home/createshc">SHC</a></li>
                     <li><a href="<?php echo str_replace("\\index.php", "", base_url());?>home/createdst">Distribute Search</a></li>
 
@@ -70,9 +69,8 @@
 				  <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Instruction<b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="http://atube/media/sim-ecs-pre-install-system" target="_blank">Video</a></li>
-                    <!--<li><a href="<?php echo str_replace("\\index.php", "", base_url());?>home/createSpecial">Special</a></li>-->
-                    <li><a href="http://wiki.autodesk.com/display/~wangjackw/ECS+Pre-Install+system+for+Simulation" target="_blank">Wiki</a></li>
+                    <li><a href="http://video..." target="_blank">Video</a></li>
+                    <li><a href="http://confulence..." target="_blank">Wiki</a></li>
                     <!--<li class="divider"></li>
                     <li><a href="/blog/create">create item</a></li>
                     <li><a href="/blog/systemlog">System log</a></li>-->

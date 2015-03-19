@@ -30,7 +30,7 @@
  		
 		
 		
-		//submit data
+			//submit data
 	   		$('#submit').click(function(e){
 	   			
 
@@ -47,7 +47,6 @@
 
 			
 	   			
-	   			
 				
 				// $('#submit').attr("disabled", true);
 				var build=$('#build').val();
@@ -63,6 +62,10 @@
 				var password=$('#password').val();
 
 				var hosts=$('#hosts').val();
+				var sitenum=$('#sitenum').val();
+				var site_rf=$('#site_rf').val();
+				var site_sf=$('#site_sf').val();
+
 
 	   			if(hosts=="")
 	   			{
@@ -100,15 +103,19 @@
 					dataType :'json' ,
 					data : {
 							build:build,
+							sitenum:sitenum,
 							peernum:peernum,
 							shnum:shnum,
+							sitenum:sitenum,
+							site_rf:site_rf,
+							site_sf:site_sf,
 							sf:sf,
 							rf:rf,
 							username:username,
 							password:password,
-							hosts:hosts
+							hosts:hosts,
 							} , 
-					url : "<?php echo site_url('home/createsc_task');?>",
+					url : "<?php echo site_url('home/createmc_task');?>",
 					complete : function(){
 						
 			
@@ -125,7 +132,7 @@
 											
 			
 				    	//window.location.replace("<?php echo site_url('home/createNormal');?>")
-				    	window.location.reload(true);
+				    	// window.location.reload(true);
 					//	$.fancybox.hideLoading()	
 					
 					}
@@ -153,7 +160,7 @@
 <!-- html body part -->
 	<div class="container" style="background:white;width:89.5%">
 		<!-- <h3 style="margin-top: 30px;">Cluster settings</h3> -->
-		<h3><span class="label label-warning">Cluster settings</span></h3>
+		<h3><span class="label label-warning">Multi-Cluster settings</span></h3>
 		  <!-- <p>Configurations of cluster that you need to deploy</p> -->
 		 	<br />
 			<form class="form-horizontal" role="form">
@@ -164,6 +171,13 @@
 			    </div>
 			  </div>
 
+
+			 <div class="form-group">
+			    <label class="col-sm-2 control-label">Site Num</label>
+			    <div class="col-sm-10" style ="width:30%">
+			      <input class="form-control" id="sitenum" type="text" value="3">
+			    </div>
+			  </div>
 
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">Peer Num In Site</label>
@@ -195,6 +209,20 @@
 			    </div>
 			  </div>
 
+	  		<div class="form-group">
+			    <label class="col-sm-2 control-label">Site_Search_factor</label>
+			    <div class="col-sm-10" style ="width:30%">
+			      <input class="form-control" id="site_sf" type="text" value="origin:1,total:3">
+			    </div>
+			  </div>
+
+			  
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">Site_Replication_factor</label>
+			    <div class="col-sm-10" style ="width:30%">
+			      <input class="form-control" id="site_rf" type="text" value="origin:2,total:4">
+			    </div>
+			  </div>
 			 
 
 			  <hr/>
@@ -224,9 +252,7 @@
 			    <div class="col-sm-10" style ="width:50%">
 			      <textarea class="form-control" rows="10" id="hosts"></textarea>
 			 	</div>
-			 	<div class="col-sm-2>
-			 		<input type="Submit" class="col-sm-2btn .btn-danger" value="Submit Button">
-			 	</div>
+			 
 			  </div>
 		
 

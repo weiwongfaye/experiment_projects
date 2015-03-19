@@ -35,9 +35,9 @@
 			{
 				var aData = oTable.fnGetData( nTr );
 				var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-				sOut += '<tr><td>Build Installed Detail:</td><td>'+aData[4]+'</td></tr>';
-				sOut += '<tr><td>Install Summary:</td><td>'+aData[5]+'</td></tr>';
-				sOut += '<tr><td>Detail install Report:</td><td>'+aData[6]+'</td></tr>';
+				sOut += '<tr><td>ENV Settings:</td><td>'+aData[6]+'</td></tr>';
+				sOut += '<tr><td>Hosts to Deploy:</td><td>'+aData[5]+'</td></tr>';
+				// sOut += '<tr><td>Detail install Report:</td><td>'+aData[6]+'</td></tr>';
 				//sOut += '<tr><td>Extra Info:</td><td>And any further details here (images etc)</td></tr>';
 				sOut += '</table>';
 				
@@ -110,23 +110,21 @@
 					  }
 			
 			
-			   	  var userid=<?php echo '"'.$usrid.'"';?>
 			   	
-				  if($(this).html()=="Apply"){
+				  if($(this).html()=="Destroy"){
 						//alert("here")
 						//	$(this).html('release');$(this).html('release');
 						
 																
 						Messenger().post({
-						  message: 'Apply Machine, you will get the login detail via mail, please check your email...',
+						  message: 'Destroy environment, cleaning...',
 						  hideAfter: 2
 						}); 
 						
 						
 						var taskidhtml=$(this).attr('id');
-						var usedbyidhtml="apply_"+$(this).attr('id').substring(5); 
-						var createridhtml="creater_"+$(this).attr('id').substring(5); 
 						var taskid=$(this).attr('id').substring(5); 
+
 						$.fancybox.showLoading();
 						$.ajax({
 						type:"POST" ,
@@ -135,43 +133,45 @@
 						data : {
 								taskid:taskid
 								} , 
-						url : "<?php echo site_url('home/ApplyServer');?>",
-						success:function(data){
+						url : "<?php echo site_url('home/destroy');?>",
+						success:function(){
 							//alert("finished");
 							//$('#example tr td.btn').text("release");
 							//$(this).html('Release');
 							
-							$.fancybox(data, {
-						         width: 800,
-						         height: 300,
-						         autoSize: false,
-						         closeClick: false,
-						         openEffect: 'none',
-						         closeEffect: 'none',
-						         beforeShow: function(){
-									  $(".fancybox-inner").css("backgroundColor","rgba(215, 236, 228, 0.51)");
-									 }
-							});
+				    		window.location.reload(true);
+
+							// $.fancybox(data, {
+						 //         width: 800,
+						 //         height: 300,
+						 //         autoSize: false,
+						 //         closeClick: false,
+						 //         openEffect: 'none',
+						 //         closeEffect: 'none',
+						 //         beforeShow: function(){
+							// 		  $(".fancybox-inner").css("backgroundColor","rgba(215, 236, 228, 0.51)");
+							// 		 }
+							// });
 							
 						
-							$.fancybox.hideLoading();
+							// $.fancybox.hideLoading();
 							
-							if (data.indexOf("occupied")==-1)
-							{								
-								/*if ($('#'+createridhtml).html()=="Auto")
-								{
-									$('#'+taskidhtml).html('Release');	
-									$('#'+usedbyidhtml).html(userid);	
-								}else{
-									$('#'+taskidhtml).html('KILL!');	
-									$('#'+taskidhtml).removeClass( "btn btn-success" ).addClass( "btn btn-warning" );
-									$('#'+usedbyidhtml).html(userid);	
+							// if (data.indexOf("occupied")==-1)
+							// {								
+							// 	if ($('#'+createridhtml).html()=="Auto")
+							// 	{
+							// 		$('#'+taskidhtml).html('Release');	
+							// 		$('#'+usedbyidhtml).html(userid);	
+							// 	}else{
+							// 		$('#'+taskidhtml).html('KILL!');	
+							// 		$('#'+taskidhtml).removeClass( "btn btn-success" ).addClass( "btn btn-warning" );
+							// 		$('#'+usedbyidhtml).html(userid);	
 								
-								}*/
-								$('#'+taskidhtml).html('KILL!');	
-								$('#'+taskidhtml).removeClass( "btn btn-success" ).addClass( "btn btn-warning" );
-								$('#'+usedbyidhtml).html(userid);	
-							}
+							// 	}
+							// 	$('#'+taskidhtml).html('KILL!');	
+							// 	$('#'+taskidhtml).removeClass( "btn btn-success" ).addClass( "btn btn-warning" );
+							// 	$('#'+usedbyidhtml).html(userid);	
+							// }
 							
 												
 						}
@@ -181,36 +181,6 @@
 				 }
 				 
 		
-				 else{
-				 	
-				 																	
-						Messenger().post({
-						  message: 'Terminating the machine you are using...'
-						  
-						}); 
-						//$(this).html('Apply');
-						$('#'+taskidhtml).html('Terminating...');
-						var taskidhtml=$(this).attr('id');
-						var usedbyidhtml="apply_"+$(this).attr('id').substring(5); 
-						var taskid=$(this).attr('id').substring(5); 
-						$.ajax({
-						type:"POST" ,
-						cache: false ,
-						dataType :'json' ,
-						data : {
-								taskid:taskid
-								} , 
-						url : "<?php echo site_url('home/TerminateServer');?>",
-						complete:function(){
-							
-							$('#'+taskidhtml).parent().parent().remove();
-							//$('#'+usedbyidhtml).html('N/A');
-						}
-					
-
-						 });
-				 }
-					
 			    //window.location.replace("<?php echo site_url('home');?>")	
 				
 				//window.location.reload(true);
@@ -230,58 +200,27 @@
 		<div class="container">
 			<div id="dt_example">
 			<div id="dt_content" style="margin-left: 20px;margin-right: 20px;margin-top: 5px;border-bottom-width: 5px;">
-			<!-- <h1 style="font-weight: bold;  font-family:"Trebuchet MS", sans-serif;">ECS Machines Pool</h1> -->
-			
-			<!-- <ul id="webticker2" style="color: black";>	
-			<li>
-				<?php echo "Server status in Current ECS Domain : ".$ecsnuminf[0]->Running."(Running) ".$ecsnuminf[0]->Pause."(Paused) ".$ecsnuminf[0]->Available."(NotUsed)" ;?>
-			</li>
-			<li>
-			   <?php
-			   		
-					if ($ecsapistatus==3)
-					{
-						echo "ECS API status is having problem";
-					}
-					else
-					{
-			    		echo "ECS status is good";
-					}
-			    ?>
-			</li>
-			<li>
-				<?php
-				
 		
-				   echo "Task status Information Overall: ".$tasksuminfo[0]." (tasks is Ready for use); ".$tasksuminfo[1]." (tasks is waiting for process); ".$tasksuminfo[2]." (tasks is Server Ready); ".$tasksuminfo[3]." (tasks is Installing product); ";
-				
-				
-				?>
-				
-				
-			</li>
-	
-		
-			</ul> -->
-
-
 			<h1 style="font-weight: bold;">Tasks List </h1>
 			<div id="demo" style="margin-bottom: 20px">
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" style="margin-bottom: 8px">
 	<thead>
 		<tr>
-			<th>Deployment Type</th>
-			<th>Master</th>
-			<th>Settings</th>
-			<th style="display: none">Buildinstalldetail</th>
+			<th>Id</th>
+			<th>Type</th>
+			<th>Build</th>
+	<!-- 	<th style="display: none">Buildinstalldetail</th>
 			<th style="display: none">InstallSummary</th>
 			<th style="display: none">InstallDetail</th>
-			<th style="display: none">id</th>
-			<th>Build</th>
+			<th style="display: none">id</th> -->
+			<th>Master</th>
+			<th style="display: none">Host</th>
+			<th style="display: none">Settings</th>
+
+			<th>CreateTime</th>
+			<th>FinishTime</th>
 			<th>Status</th>
-			<!--<th>KeepDuration</th>-->
 			<th>Details</th>
-			<th>Status</th>
 			
 		</tr>
 	</thead>
@@ -295,104 +234,127 @@
 				
 			//display all
 			
-			if ($singleTask->terminateflag==0){
+			if ($singleTask->status!="destroy"){
 					
 				 //table row color
-				 if($singleTask->status=="Ready For Use"){
-				 	 echo '<tr class="gradeA">';
-				 }elseif(stripos(strtolower($singleTask->status), "out")){
-				 	echo '<tr class="gradeX">';
+				 if($singleTask->status=="scheduled"){
+				 	 echo '<tr class="gradeC">';
+				 }elseif(stripos(strtolower($singleTask->status), "process")){
+				 	echo '<tr class="gradeA">';
 				 	
 				 }else{
-				 	echo '<tr class="gradeC">';
+				 	echo '<tr class="gradeX">';
 				 }
 				
-				 echo '<td>'.$singleTask->workeros.'</td>';
-				 echo '<td>'.$singleTask->server_type.'</td>';
-				 
-				 $buildtoinstall="";
-				 $buildtoinstallDetail="";
-				 $buildinfo=$singleTask->buildinfo;
-				 $buildarray=explode("[forsplit]", $buildinfo);
-				 
-				 $installSummary=$singleTask->final_status;
-				 $installDetailReport=$singleTask->message;
-				 
-				 if (is_null($installSummary)){$installSummary="N/A";}
-				 if (is_null($installDetailReport)){$installDetailReport="N/A";}
-				 
-				 
-				 foreach ($buildarray as $build) {
-					 $singlebuildinf=explode("|", $build);
-					 $buildtoinstall=$buildtoinstall.$singlebuildinf[0].'-'.$singlebuildinf[1]."<br/>";
-					 $buildtoinstallDetail=$buildtoinstallDetail.$singlebuildinf[0].'-'.$singlebuildinf[2]."<br/>";
+				 // for differe type
+				 if ($singleTask->deploytype == 'single_cluster'){
+				 	$settings ='sh_num:'.$singleTask->shnum.'<br>peer_num:'.$singleTask->peernum.'<br>search_factor: '.$singleTask->sf.'<br>replication_factor: '.$singleTask->rf;
+				 }elseif ($singleTask->deploytype == 'multisite_cluster') {
+
+				 	$settings ='site_num:'.$singleTask->sitenum.'<br>site_search_factor:'.$singleTask->site_sf.'<br>site_replication_factor:'.$singleTask->site_rf.'<br>sh_num:'.$singleTask->shnum.'<br>peer_num:'.$singleTask->peernum.'<br>search_factor: '.$singleTask->sf.'<br>replication factor: '.$singleTask->rf;
+				 	
 				 }
-				 
-				 echo '<td>'.$buildtoinstall.'</td>';
-				 echo '<td style="display:none">'.$buildtoinstallDetail.'</td>';
-				 echo '<td style="display:none">'.$installSummary.'</td>';
-				 echo '<td style="display:none">'.$installDetailReport.'</td>';
-			     echo '<td style="display:none">'.$singleTask->id.'</td>';
-				 echo '<td>'.date('Y-m-d H:i:s',$singleTask->taskcreatedatetime-8*60*60).'</td>';
-				 
-				 if($singleTask->serveralivetime!=="")
-				 {
-				 	echo '<td>'.date('Y-m-d H:i:s',$singleTask->serveralivetime-8*60*60).'</td>';
-				 }else{
-				 	echo '<td>N/A</td>';
-				 }
-				 				//(double)(sprintf("%.2f", floatval((($row->value)/$baselinevalue)))s 
-				 //echo '<td>'.$singleTask->serveraliveduration.'days</td>';
-				 if($singleTask->serveralivetime!==""){
-				 	if ($singleTask->serveraliveduration*24*60*60-(time()-$singleTask->serveralivetime)>0)
-					{
-				 		echo '<td>'.((double)(sprintf("%.2f",($singleTask->serveraliveduration*24*60*60-(time()-$singleTask->serveralivetime))/3600/24))).' days</td>';
-					}
-					else{
-						 echo '<td> 0 days</td>';
-					}
-				 }else{
-				 	 echo '<td>'.$singleTask->serveraliveduration.' days</td>';
-				 }
+
+				 $master=explode('-', $singleTask->hosts)[1];
+				 echo '<td>'.$singleTask->id.'</td>';
+				 echo '<td>'.$singleTask->deploytype.'</td>';
+				 echo '<td><a href='.$singleTask->build.'/>'.explode('/',$singleTask->build)[count(explode('/',$singleTask->build))-1].'</a></td>';
+
+				 echo '<td><a href="http://'.$master.':8000"/>'.$master.'</a></td>';
+				 echo '<td style="display:none">'.$singleTask->hosts.'</td>';
+				 echo '<td style="display:none">'.$settings.'</td>';
+
+				 echo '<td>'.$singleTask->createtime.'</td>';
+				 echo '<td>'.$singleTask->finishtime.'</td>';
 				 echo '<td>'.$singleTask->status.'</td>';
-				 echo '<td id="creater_'.$singleTask->id.'" >'.$singleTask->creater.'</td>';
+				 echo "<td><button class=\"btn btn-success\" id=\"task_".$singleTask->id."\" type=\"submit\">Destroy</button></td>";
+				 echo '</tr>';
+
+
+				 
+				 // $buildtoinstall="";
+				 // $buildtoinstallDetail="";
+				 // $buildinfo=$singleTask->buildinfo;
+				 // $buildarray=explode("[forsplit]", $buildinfo);
+				 
+				 // $installSummary=$singleTask->final_status;
+				 // $installDetailReport=$singleTask->message;
+				 
+				 // if (is_null($installSummary)){$installSummary="N/A";}
+				 // if (is_null($installDetailReport)){$installDetailReport="N/A";}
+				 
+				 
+				 // foreach ($buildarray as $build) {
+					//  $singlebuildinf=explode("|", $build);
+					//  $buildtoinstall=$buildtoinstall.$singlebuildinf[0].'-'.$singlebuildinf[1]."<br/>";
+					//  $buildtoinstallDetail=$buildtoinstallDetail.$singlebuildinf[0].'-'.$singlebuildinf[2]."<br/>";
+				 // }
+				 
+				 // echo '<td>'.$buildtoinstall.'</td>';
+				 // echo '<td style="display:none">'.$buildtoinstallDetail.'</td>';
+				 // echo '<td style="display:none">'.$installSummary.'</td>';
+				 // echo '<td style="display:none">'.$installDetailReport.'</td>';
+			  //    echo '<td style="display:none">'.$singleTask->id.'</td>';
+				 // echo '<td>'.date('Y-m-d H:i:s',$singleTask->taskcreatedatetime-8*60*60).'</td>';
+				 
+				 // if($singleTask->serveralivetime!=="")
+				 // {
+				 // 	echo '<td>'.date('Y-m-d H:i:s',$singleTask->serveralivetime-8*60*60).'</td>';
+				 // }else{
+				 // 	echo '<td>N/A</td>';
+				 // }
+				 // 				//(double)(sprintf("%.2f", floatval((($row->value)/$baselinevalue)))s 
+				 // //echo '<td>'.$singleTask->serveraliveduration.'days</td>';
+				 // if($singleTask->serveralivetime!==""){
+				 // 	if ($singleTask->serveraliveduration*24*60*60-(time()-$singleTask->serveralivetime)>0)
+					// {
+				 // 		echo '<td>'.((double)(sprintf("%.2f",($singleTask->serveraliveduration*24*60*60-(time()-$singleTask->serveralivetime))/3600/24))).' days</td>';
+					// }
+					// else{
+					// 	 echo '<td> 0 days</td>';
+					// }
+				 // }else{
+				 // 	 echo '<td>'.$singleTask->serveraliveduration.' days</td>';
+				 // }
+				 // echo '<td>'.$singleTask->status.'</td>';
+				 // echo '<td id="creater_'.$singleTask->id.'" >'.$singleTask->creater.'</td>';
 				 
 				 		 
-				 if($singleTask->applyby!=="")
-				 {
-				 	echo '<td id="apply_'.$singleTask->id.'" >'.$singleTask->applyby.'</td>';
-				 }else{
-				 	echo '<td id="apply_'.$singleTask->id.'" >N/A</td>';
-				 }
+				 // if($singleTask->applyby!=="")
+				 // {
+				 // 	echo '<td id="apply_'.$singleTask->id.'" >'.$singleTask->applyby.'</td>';
+				 // }else{
+				 // 	echo '<td id="apply_'.$singleTask->id.'" >N/A</td>';
+				 // }
 			
 			
 				
-				 if($singleTask->status=="Ready For Use" && ($usrid==$singleTask->creater||$singleTask->creater=="Auto") &&$singleTask->applyby==="" &&$singleTask->terminateflag==0)
-				 {
-					 echo "<td><button class=\"btn btn-success\" id=\"task_".$singleTask->id."\" type=\"submit\">Apply</button></td>";
-				 }
-				 elseif($singleTask->status=="Ready For Use" && $singleTask->creater=="Auto" &&$singleTask->applyby==$usrid &&$singleTask->terminateflag==0)
-				 {
-				 	echo "<td><button class=\"btn btn-warning\" id=\"task_".$singleTask->id."\" type=\"submit\">KILL!</button></td>";
+				 // if($singleTask->status=="Ready For Use" && ($usrid==$singleTask->creater||$singleTask->creater=="Auto") &&$singleTask->applyby==="" &&$singleTask->terminateflag==0)
+				 // {
+					//  echo "<td><button class=\"btn btn-success\" id=\"task_".$singleTask->id."\" type=\"submit\">Apply</button></td>";
+				 // }
+				 // elseif($singleTask->status=="Ready For Use" && $singleTask->creater=="Auto" &&$singleTask->applyby==$usrid &&$singleTask->terminateflag==0)
+				 // {
+				 // 	echo "<td><button class=\"btn btn-warning\" id=\"task_".$singleTask->id."\" type=\"submit\">KILL!</button></td>";
 					
-				 }
-				 elseif($singleTask->status=="Ready For Use" && $usrid==$singleTask->creater &&$singleTask->applyby==$usrid &&$singleTask->terminateflag==0)
-				 {
-				 	echo "<td><button class=\"btn btn-warning\" id=\"task_".$singleTask->id."\" type=\"submit\">KILL!</button></td>";
-				 }
-		 		 elseif($singleTask->status=="Ready For Use" && $singleTask->applyby!=""  &&$singleTask->applyby!=$usrid &&$singleTask->terminateflag==0)
-				 {
-				 	echo "<td><button class=\"btn btn-warning\" disabled=\"disabled\"  id=\"task_".$singleTask->id."\" type=\"submit\">KILL!</button></td>";
-				 }
-				 elseif($singleTask->status=="Ready For Use" &&$singleTask->applyby!=$usrid &&$singleTask->applyby!="" &&$singleTask->terminateflag==0)
-				 {
-				 	echo "<td><button class=\"btn btn-warning\" disabled=\"disabled\"  id=\"task_".$singleTask->id."\" type=\"submit\">KILL!</button></td>";
+				 // }
+				 // elseif($singleTask->status=="Ready For Use" && $usrid==$singleTask->creater &&$singleTask->applyby==$usrid &&$singleTask->terminateflag==0)
+				 // {
+				 // 	echo "<td><button class=\"btn btn-warning\" id=\"task_".$singleTask->id."\" type=\"submit\">KILL!</button></td>";
+				 // }
+		 		//  elseif($singleTask->status=="Ready For Use" && $singleTask->applyby!=""  &&$singleTask->applyby!=$usrid &&$singleTask->terminateflag==0)
+				 // {
+				 // 	echo "<td><button class=\"btn btn-warning\" disabled=\"disabled\"  id=\"task_".$singleTask->id."\" type=\"submit\">KILL!</button></td>";
+				 // }
+				 // elseif($singleTask->status=="Ready For Use" &&$singleTask->applyby!=$usrid &&$singleTask->applyby!="" &&$singleTask->terminateflag==0)
+				 // {
+				 // 	echo "<td><button class=\"btn btn-warning\" disabled=\"disabled\"  id=\"task_".$singleTask->id."\" type=\"submit\">KILL!</button></td>";
 					
-				 }else
-			 	 {
-			 		 echo "<td><button class=\"btn btn-success\" disabled=\"disabled\" id=\"task_".$singleTask->id."\" type=\"submit\">Apply</button></td>";
-			 	 }	 
-				 echo '</tr>';
+				 // }else
+			 	//  {
+			 	// 	 echo "<td><button class=\"btn btn-success\" disabled=\"disabled\" id=\"task_".$singleTask->id."\" type=\"submit\">Apply</button></td>";
+			 	//  }	 
+				 // echo '</tr>';
 			 }
 			 
 			}
