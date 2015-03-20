@@ -49,7 +49,7 @@
 	   			
 	   			
 				
-				// $('#submit').attr("disabled", true);
+				$('#submit').attr("disabled", true);
 				var build=$('#build').val();
 				var peernum=$('#peernum').val();
 				var shnum=$('#shnum').val();
@@ -64,7 +64,7 @@
 
 				var hosts=$('#hosts').val();
 
-	   			if(hosts=="")
+	   			if(hosts=="" || hosts.indexOf('-')==-1)
 	   			{
 		   			
    					Messenger.options = {
@@ -73,7 +73,7 @@
 				 	 }
 		   			
 		   			Messenger().post({
-				 		 message: 'please provide hosts',
+				 		 message: 'please provide hosts, host should start with "-",eg.</br> -10.66.59.102 </br> -10.66.59.103 </br> -10.66.59.104 </br> -10.66.59.105 </br> -10.66.59.106 </br> -10.66.59.107 </br> -10.66.59.108 </br> -10.66.59.109 </br> -10.66.59.110 </br> -10.66.59.111 </br> -10.66.59.112 </br> -10.66.59.113',
 				 		 type: 'error',
    						 showCloseButton: true
 				  
@@ -124,7 +124,6 @@
 				
 											
 			
-				    	//window.location.replace("<?php echo site_url('home/createNormal');?>")
 				    	window.location.reload(true);
 					//	$.fancybox.hideLoading()	
 					
