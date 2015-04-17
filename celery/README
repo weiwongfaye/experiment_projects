@@ -1,0 +1,8 @@
+1/ create_task.py used for producing task into queue
+
+2/ tasks.py  used for consume task
+command: celery worker -A tasks -l INFO
+
+3/ flower used for monitor
+
+command: celery -A tasks flower
