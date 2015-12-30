@@ -1,0 +1,15 @@
+LICENCE.txt
+MANIFEST.in
+README.rst
+setup.py
+src/bin/__init__.py
+src/bin/pythonquickstart.py
+src/pythonquickstart/__init__.py
+src/pythonquickstart/pythonquickstart.py
+src/pythonquickstart.egg-info/PKG-INFO
+src/pythonquickstart.egg-info/SOURCES.txt
+src/pythonquickstart.egg-info/dependency_links.txt
+src/pythonquickstart.egg-info/entry_points.txt
+src/pythonquickstart.egg-info/top_level.txt
+src/tests/__init__.py
+src/tests/test_pythonquickstart.py

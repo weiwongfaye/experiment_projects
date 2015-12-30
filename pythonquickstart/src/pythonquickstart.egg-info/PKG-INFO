@@ -1,0 +1,25 @@
+Metadata-Version: 1.0
+Name: pythonquickstart
+Version: 0.0.0.0
+Summary: pythonquickstart description
+Home-page: UNKNOWN
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: LICENSE.txt
+Description: pythonquickstart
+        =================
+        
+        Installation
+        -------------
+        
+        ``sh
+                python setup.py clean build install
+        ``
+        
+        Licence
+        --------
+        
+        
+        Contribute
+        ------------
+Platform: UNKNOWN

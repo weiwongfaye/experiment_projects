@@ -1,0 +1,3 @@
+bin
+pythonquickstart
+tests
