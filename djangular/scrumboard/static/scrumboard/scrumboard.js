@@ -18,6 +18,11 @@
 				});
 			// list.cards.push(card);
 		};
+		$scope.login = function(){
+			$http.post('/auth_api/login/',
+				{username: 'weiwang', password:'thisistemp1'});
+		};
+
 		$scope.data= [];
 
 		$http.get('/scrumboard/lists/').then(function(response){
