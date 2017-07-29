@@ -1,6 +1,9 @@
 <div class="card" ng-hide="edit" ng-click="edit=true">
 	<h4> {{ card.title }} </h4>
-	<span class="description"> {{ card.description }} </span>
+	<span class="description">description: {{ card.description }} </span> <br/>
+    <span class="description">story_points:{{ card.story_points }} </span><br/>
+	<span class="description">business_value: {{ card.business_value }} </span>
+
 </div>
 
 <div class="card" ng-show="edit" ng-model-options="modelOptions">
@@ -16,6 +19,14 @@
 			  ng-change="update()"
 			  placeholder="Enter description..." >
 	</textarea>
+
+    <div>
+        <label>List: </label>
+        <select ng-options="list as list.name for list in data"
+                ng-model="destList"></select>
+        <button ng-click="move()">Move</button>
+    </div>
+
 	<button ng-click="edit=false">Close</button>
 	<button ng-click="delete()">Delete Card</button>
 

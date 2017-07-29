@@ -1,7 +1,7 @@
 html {
     font-size: 1em;
     line-height: 1.4;
-    background: black;
+    /*background: black;*/
 }
 
 .list {
@@ -14,6 +14,7 @@ html {
 }
 
 .list h3 {
+    display:inline;
     padding-left: 7px;
     color: white;
 }
@@ -75,9 +76,16 @@ ul {
 
 .list-sort {
     color: white;
-    margin: 0px 7px 0px 7px;
+    margin-left: 7px;
 }
 
 .close-delete-inputs {
     float: right;
+}
+
+.logout{
+    float: right;
+}
+.show-filters {
+    float:right;
 }

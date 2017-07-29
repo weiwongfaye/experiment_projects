@@ -1,0 +1,21 @@
+
+<div class="page-container">
+    <h1>Login</h1>
+    <form  ng-submit="login()" class="loginform">
+        <div>
+            <label class="loginlabel">Username</label>
+            <input type="text"  class="logininput" ng-model="user.username"/>
+        </div>
+
+        <div>
+            <label class="loginlabel">Password</label>
+            <input type="password" class="logininput" ng-model="user.password"/>
+        </div>
+        <div style="..." class="error"> {{ login_error }} </div>
+        <button type="submit" id="submit">Submit</button>
+    </form>
+
+</div>
+
+
+
