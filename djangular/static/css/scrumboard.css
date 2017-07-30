@@ -85,6 +85,7 @@ ul {
 
 .logout{
     float: right;
+    margin-top:10px;
 }
 .show-filters {
     float:right;
